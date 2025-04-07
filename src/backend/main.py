@@ -5,6 +5,7 @@ import numpy as np
 import uvicorn
 import os
 from fastapi.middleware.cors import CORSMiddleware
+from typing import Optional
 
 app = FastAPI(title="Loan Approval Prediction API")
 
@@ -43,6 +44,9 @@ class LoanApplication(BaseModel):
     loan_amount_term: float
     credit_history: float
     property_area: str
+
+    class Config:
+        from_attributes = True
 
 @app.post("/predict")
 async def predict_loan(application: LoanApplication):
